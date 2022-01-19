@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { getCategories } from '../services/api';
-import { getProductsFromCategoryAndQuery } from '../services/api';
+import {
+  getProductsFromCategoryAndQuery,
+  getProductsFromCategory,
+  getCategories } from '../services/api';
 import Products from './Products';
-
 
 class Search extends Component {
   constructor() {
@@ -14,19 +15,13 @@ class Search extends Component {
       results: [],
       categories: [],
     };
-    
+
     this.handleInput = this.handleInput.bind(this);
     this.handleClick = this.handleClick.bind(this);
   }
 
   componentDidMount() {
     this.fetchCategories();
-  }
-
-  fetchCategories = async () => {
-    const categoriesList = await getCategories();
-    console.log(categoriesList);
-    this.setState({ categories: categoriesList });
   }
 
   handleInput({ target: { value } }) {
@@ -39,6 +34,16 @@ class Search extends Component {
     this.setState({ results: apiRequest.results });
   }
 
+  fetchCategories = async () => {
+    const categoriesList = await getCategories();
+    this.setState({ categories: categoriesList });
+  }
+
+  selectCategories = async ({ target }) => {
+    const apiRequest = await getProductsFromCategory(target.id);
+    this.setState({ results: apiRequest.results });
+  }
+
   render() {
     const { results, categories } = this.state;
 
@@ -47,7 +52,12 @@ class Search extends Component {
         <ul>
           { categories.map((elem) => (
             <li key={ elem.id }>
-              <button type="button" data-testid="category">
+              <button
+                id={ elem.id }
+                type="button"
+                data-testid="category"
+                onClick={ this.selectCategories }
+              >
                 { elem.name }
               </button>
             </li>
