@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { getCategories } from '../services/api';
 import { getProductsFromCategoryAndQuery } from '../services/api';
 import Products from './Products';
+
 
 class Search extends Component {
   constructor() {
@@ -10,10 +12,21 @@ class Search extends Component {
     this.state = {
       input: '',
       results: [],
+      categories: [],
     };
-
+    
     this.handleInput = this.handleInput.bind(this);
     this.handleClick = this.handleClick.bind(this);
+  }
+
+  componentDidMount() {
+    this.fetchCategories();
+  }
+
+  fetchCategories = async () => {
+    const categoriesList = await getCategories();
+    console.log(categoriesList);
+    this.setState({ categories: categoriesList });
   }
 
   handleInput({ target: { value } }) {
@@ -27,9 +40,19 @@ class Search extends Component {
   }
 
   render() {
-    const { results } = this.state;
+    const { results, categories } = this.state;
+
     return (
-      <div>
+      <main>
+        <ul>
+          { categories.map((elem) => (
+            <li key={ elem.id }>
+              <button type="button" data-testid="category">
+                { elem.name }
+              </button>
+            </li>
+          ))}
+        </ul>
         <p data-testid="home-initial-message">
           Digite algum termo de pesquisa ou escolha uma categoria.
         </p>
@@ -54,7 +77,7 @@ class Search extends Component {
           ))}
         </div>
         <Link to="/Cart" data-testid="shopping-cart-button"> Carrinho </Link>
-      </div>
+      </main>
     );
   }
 }
