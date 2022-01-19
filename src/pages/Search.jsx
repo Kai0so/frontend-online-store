@@ -5,25 +5,25 @@ import Products from './Products';
 
 class Search extends Component {
   constructor() {
-    super()
+    super();
 
     this.state = {
       input: '',
       results: [],
-    }
+    };
 
-    this.handleInput = this.handleInput.bind(this)
-    this.handleClick = this.handleClick.bind(this)
+    this.handleInput = this.handleInput.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
-  handleInput({target: {value}}) {
-    this.setState({ input: value })
+  handleInput({ target: { value } }) {
+    this.setState({ input: value });
   }
 
   async handleClick() {
     const { input } = this.state;
-    const apiRequest = await getProductsFromCategoryAndQuery(input)
-    this.setState({ results: apiRequest.results })
+    const apiRequest = await getProductsFromCategoryAndQuery(input);
+    this.setState({ results: apiRequest.results });
   }
 
   render() {
@@ -35,23 +35,21 @@ class Search extends Component {
         </p>
         <form>
           <input
+            data-testid="query-input"
             type="text"
             onChange={ this.handleInput }
           />
-           <button
-            type="button"
-            onClick={ this.handleClick }
-           >
-             Pesquisar
+          <button data-testid="query-button" type="button" onClick={ this.handleClick }>
+            Pesquisar
           </button>
         </form>
         <div>
-          {results.map(({id, price, thumbnail, title}) => (
-            <Products 
-              key={id}
-              price={price}
-              thumbnail={thumbnail}
-              title={title}
+          {results.map(({ id, price, thumbnail, title }) => (
+            <Products
+              key={ id }
+              price={ price }
+              thumbnail={ thumbnail }
+              title={ title }
             />
           ))}
         </div>
