@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 export default class Products extends React.Component {
   addProductCart = () => {
@@ -17,10 +18,15 @@ export default class Products extends React.Component {
   }
 
   render() {
-    const { price, thumbnail, title } = this.props;
+    const { price, thumbnail, title, result } = this.props;
     return (
       <div data-testid="product">
-        <h3>{ title }</h3>
+        <Link
+          data-testid="product-detail-link"
+          to={ `/product/${result.id}` }
+        >
+          <h3>{ title }</h3>
+        </Link>
         <span>{ price }</span>
         <img src={ thumbnail } alt={ title } />
         <button
