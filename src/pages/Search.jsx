@@ -49,6 +49,7 @@ class Search extends Component {
 
     return (
       <main>
+        <Link to="/Cart" data-testid="shopping-cart-button"> Carrinho </Link>
         <ul>
           { categories.map((elem) => (
             <li key={ elem.id }>
@@ -79,6 +80,13 @@ class Search extends Component {
         <div>
           {results.map((res) => (
             <>
+              <Products
+                result={ res }
+                key={ res.id }
+                price={ res.price }
+                thumbnail={ res.thumbnail }
+                title={ res.title }
+              />
               <Link
                 id={ res.id }
                 data-testid="product-detail-link"
@@ -87,13 +95,6 @@ class Search extends Component {
               >
                 Detalhes
               </Link>
-              <Products
-                result={ res }
-                key={ res.id }
-                price={ res.price }
-                thumbnail={ res.thumbnail }
-                title={ res.title }
-              />
             </>
           ))}
         </div>
