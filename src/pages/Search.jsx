@@ -78,23 +78,26 @@ class Search extends Component {
         </form>
         <div>
           {results.map((res) => (
-             <Link
-              id={ res.id }
-              data-testid="product-detail-link"
-              key={ res.id }
-              to={ `/product/${res.id}` }
-            >
-            <Products
-              result={ res }
-              key={ res.id }
-              price={ res.price }
-              thumbnail={ res.thumbnail }
-              title={ res.title }
-            />
+            <>
+              <Link
+                id={ res.id }
+                data-testid="product-detail-link"
+                key={ res.id }
+                to={ `/product/${res.id}` }
+              >
+                Detalhes
               </Link>
+              <Products
+                result={ res }
+                key={ res.id }
+                price={ res.price }
+                thumbnail={ res.thumbnail }
+                title={ res.title }
+              />
+            </>
           ))}
         </div>
-        <Link to="/Cart" data-testid="shopping-cart-button"> Carrinho </Link>
+
       </main>
     );
   }
