@@ -50,20 +50,20 @@ class Search extends Component {
     return (
       <main>
         <Link to="/Cart" data-testid="shopping-cart-button"> Carrinho </Link>
-        <ul>
+        <form>
           { categories.map((elem) => (
-            <li key={ elem.id }>
-              <button
+            <div key={ elem.id }>
+              <input
+                type="radio"
                 id={ elem.id }
-                type="button"
+                name="category-select"
                 data-testid="category"
                 onClick={ this.selectCategories }
-              >
-                { elem.name }
-              </button>
-            </li>
+              />
+              <label htmlFor={ elem.id }>{ elem.name }</label>
+            </div>
           ))}
-        </ul>
+        </form>
         <p data-testid="home-initial-message">
           Digite algum termo de pesquisa ou escolha uma categoria.
         </p>
