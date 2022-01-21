@@ -10,8 +10,8 @@ class ProductDetails extends React.Component {
       product: [],
       img: '',
       price: 0,
+      }
     };
-  }
 
   componentDidMount() {
     this.apiRequest();
