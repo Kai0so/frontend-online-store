@@ -1,4 +1,5 @@
 import React from 'react';
+import Cart2 from './Cart2';
 
 class Cart extends React.Component {
   constructor() {
@@ -70,13 +71,16 @@ class Cart extends React.Component {
             )
         }
         {
-          (localData !== null) && this.getSavedCartItems()
+          (localData !== null) && (
+            localData.map((item, indice) => (
+              <Cart2 teste={ this.teste } key={ indice } item={ item } />
+            ))
+          )
         }
         {
           (localData !== null) && (
-            <h3 data-testid="shopping-cart-product-quantity">
-              Total de Itens no Carrinho:
-              {localData.length}
+            <h3>
+              {(localData.length)}
             </h3>)
         }
       </>
