@@ -73,13 +73,13 @@ class Cart extends React.Component {
         {
           (localData !== null) && (
             localData.map((item, indice) => (
-              <Cart2 teste={this.teste} key={indice} item={item} />
+              <Cart2 teste={ this.teste } key={ indice } item={ item } />
             ))
           )
         }
         {
           (localData !== null) && (
-            <h3 data-testid="shopping-cart-product-quantity">
+            <h3>
               {(localData.length)}
             </h3>)
         }
